@@ -1,6 +1,6 @@
 # Ansible Proxmox KVM agent_info
 
-Test playbook to show working example of `agent_info` feature of Proxmox KVM module.
+Test playbook to show working example of `agent_info` feature of Proxmox KVM module. PR: https://github.com/ansible/ansible/pull/65142
 
 ## Usage
 
