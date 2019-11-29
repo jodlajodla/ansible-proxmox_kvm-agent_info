@@ -1,0 +1,49 @@
+---
+
+- name: Proxmox KVM Agent Info Test Playbook
+  hosts: localhost
+  connection: local
+  vars_prompt:
+    - name: "pve_api_host"
+      prompt: "PVE API host"
+      private: no
+      confirm: yes
+    - name: "pve_api_user"
+      prompt: "PVE API user"
+      private: no
+      confirm: yes
+    - name: "pve_api_password"
+      prompt: "PVE API password"
+      private: yes
+      confirm: yes
+    - name: "pve_node"
+      prompt: "PVE node"
+      private: no
+      confirm: yes
+    - name: "pve_instance"
+      prompt: "PVE instance"
+      private: no
+      confirm: yes
+  tasks:
+    - proxmox_kvm:
+        api_host: "{{ pve_api_host }}"
+        api_user: "{{ pve_api_user }}"
+        api_password: "{{ pve_api_password }}"
+        node: "{{ pve_node }}"
+        name: "{{ pve_instance }}"
+        state: current
+        agent_info:
+          - fsinfo
+          - hostname
+          - memory_block_info
+          - memory_blocks
+          - osinfo
+          - time
+          - timezone
+          - users
+          - vcpus
+          - info
+          - network_interfaces
+      register: proxmox_kvm_output
+    - debug:
+        msg: "{{ proxmox_kvm_output }}"
